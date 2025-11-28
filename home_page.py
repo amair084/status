@@ -21,7 +21,7 @@ class HomePage(ctk.CTkFrame):
         self.homeframe = ctk.CTkFrame(self, width=545, height=425, fg_color="#29292A")
         self.homeframe.pack(padx=15, pady=15)
 
-        self.calendarbox = ctk.CTkScrollableFrame(self.homeframe, height=160, width=510, orientation="horizontal", fg_color="#29292A")
+        self.calendarbox = ctk.CTkScrollableFrame(self.homeframe, height=150, width=510, orientation="horizontal", fg_color="#29292A")
         self.calendarbox.place(x=0, y=0)
 
         self.streakcontainer = ctk.CTkFrame(self.homeframe, height=100, width=200,corner_radius=10, fg_color="#212121")
@@ -56,17 +56,17 @@ class HomePage(ctk.CTkFrame):
         self.dailybox.pack_propagate(False)
 
         dailybox_logo = ctk.CTkImage(
-            light_image=Image.open("resources/muscle.png"),
-            dark_image=Image.open("resources/muscle.png"),
-            size=(55, 57)
+            light_image=Image.open("resources/bicep.png"),
+            dark_image=Image.open("resources/bicep.png"),
+            size=(35, 40)
         )
 
-        daily_label = ctk.CTkLabel(self.dailybox, image=dailybox_logo, text="")
+        self.daily_label = ctk.CTkLabel(self.dailybox, image=dailybox_logo, text="")
         daily_label2 = ctk.CTkLabel(self.dailybox, text="Today's Workout", font=("Roboto", 14), text_color="red")
 
-        daily_label2.place(x=45, y=5)
-        daily_label.image = dailybox_logo
-        daily_label.place(x=2, y=0)
+        self.daily_label.image = dailybox_logo
+        self.daily_label.place(x=2, y=0)
+        daily_label2.place(x=40, y=10)
 
 
 
@@ -103,7 +103,7 @@ class HomePage(ctk.CTkFrame):
                 for move, (sets, reps) in routine.items():
                     label = ctk.CTkLabel(day_box, text=f"{move}: {sets}x{reps}", font=("Arial", 9, "bold"), height=2)
                     if sets != 0:
-                        label.pack(anchor="nw", fill="x", expand=True, pady=4)
+                        label.pack(anchor="nw", fill="x", expand=True, pady=4, padx=3)
             else:
                 # Show default "Rest Day"
                 day_box.pack_propagate(False)
@@ -119,13 +119,14 @@ class HomePage(ctk.CTkFrame):
         if self.restday == True:
             daily_workout.pack(padx=20, pady=70)
         else:
-            daily_workout.place(x=20,y=30)
+            daily_workout.place(x=32,y=30)
 
         self.day_labels[weekday].configure(text_color="#D72627")
         self.container_boxes[weekday].configure(fg_color="#8D1F1F")
 
-        self.update()
+        self.daily_label.lift()
 
+        self.update()
 
     def refresh(self):
         current_datetime = datetime.now()
@@ -183,7 +184,7 @@ class HomePage(ctk.CTkFrame):
                             font=("Arial", 9, "bold"),
                             height=2
                         )
-                        label.pack(anchor="nw", fill="x", expand=True, pady=4)
+                        label.pack(anchor="nw", fill="x", expand=True, pady=4, padx=3)
             else:
                 rest_label = ctk.CTkLabel(box, text="Rest Day", font=("Arial", 12, "bold"))
                 rest_label.pack(expand=True)
@@ -198,4 +199,18 @@ class HomePage(ctk.CTkFrame):
         if self.restday:
             cloned.pack(padx=20, pady=70)
         else:
-            cloned.place(x=20, y=30)
+            cloned.place(x=30, y=30)
+
+        dailybox_logo = ctk.CTkImage(
+            light_image=Image.open("resources/bicep.png"),
+            dark_image=Image.open("resources/bicep.png"),
+            size=(35, 40)
+        )
+
+        self.daily_label = ctk.CTkLabel(self.dailybox, image=dailybox_logo, text="")
+        daily_label2 = ctk.CTkLabel(self.dailybox, text="Today's Workout", font=("Roboto", 14), text_color="red")
+
+        self.daily_label.image = dailybox_logo
+        self.daily_label.place(x=2, y=0)
+        daily_label2.place(x=40, y=10)
+

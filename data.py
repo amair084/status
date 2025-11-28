@@ -7,19 +7,6 @@ class WorkoutData:
         self.cursor = self.conn.cursor()
         self._create_tables()
 
-    def _create_log_tables(self):
-        # Table for routines: day, movement, sets, reps
-        self.cursor.execute("""
-            CREATE TABLE IF NOT EXISTS logs (
-                day TEXT,
-                movement TEXT,
-                sets INTEGER,
-                reps INTEGER,
-                PRIMARY KEY(day, movement)
-            )
-        """)
-        self.conn.commit()
-
     def _create_tables(self):
         # Table for routines: day, movement, sets, reps
         self.cursor.execute("""
@@ -31,6 +18,24 @@ class WorkoutData:
                 PRIMARY KEY(day, movement)
             )
         """)
+
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS workout_logs (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                date TEXT,
+                movement TEXT,
+                sets INTEGER,
+                reps INTEGER
+            )
+        """)
+
+        self.conn.commit()
+
+    def log_workout(self, date, movement, sets, reps):
+        self.cursor.execute("""
+            INSERT INTO workout_logs (date, movement, sets, reps)
+            VALUES (?, ?, ?, ?)
+        """, (date, movement, sets, reps))
         self.conn.commit()
 
     def save_routine(self, day_name, movements_dict):
@@ -70,6 +75,21 @@ class WorkoutData:
         self.cursor.execute("SELECT movement, sets, reps FROM routines WHERE day = ?", (day_name,))
         rows = self.cursor.fetchall()
         return {movement: (sets, reps) for movement, sets, reps in rows}
+
+    def load_logs(self):
+        """Return all logged workouts as a list of dicts."""
+        self.cursor.execute("SELECT date, movement, sets, reps FROM workout_logs ORDER BY date ASC")
+        rows = self.cursor.fetchall()
+        logs = []
+        for row in rows:
+            log_entry = {
+                "date": row[0],
+                "movement": row[1],
+                "sets": row[2],
+                "reps": row[3]
+            }
+            logs.append(log_entry)
+        return logs
 
     def close(self):
         self.conn.close()
