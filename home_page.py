@@ -16,7 +16,7 @@ class HomePage(ctk.CTkFrame):
 
         self.restday = False
 
-        self.restday = weekday in (2, 4, 6)
+        self.restday = (weekday == 6)
 
         self.homeframe = ctk.CTkFrame(self, width=545, height=425, fg_color="#29292A")
         self.homeframe.pack(padx=15, pady=15)
@@ -103,7 +103,10 @@ class HomePage(ctk.CTkFrame):
                 for move, (sets, reps) in routine.items():
                     label = ctk.CTkLabel(day_box, text=f"{move}: {sets}x{reps}", font=("Arial", 9, "bold"), height=2)
                     if sets != 0:
-                        label.pack(anchor="nw", fill="x", expand=True, pady=4, padx=3)
+                        if len(routine.items()) > 5:
+                            label.pack(anchor="nw", fill="x", expand=True, pady=1, padx=3)
+                        else:
+                            label.pack(anchor="nw", fill="x", expand=True, pady=3, padx=3)
             else:
                 # Show default "Rest Day"
                 day_box.pack_propagate(False)
@@ -132,7 +135,7 @@ class HomePage(ctk.CTkFrame):
         current_datetime = datetime.now()
         weekday = current_datetime.weekday()
 
-        self.restday = weekday in (2, 4, 6)
+        self.restday = (weekday == 6)
 
         self.update_calendar()
         self.update_today_workout(weekday)
@@ -159,7 +162,7 @@ class HomePage(ctk.CTkFrame):
             self.after(20, self.scroll_to_today)
             return
 
-        target = 0.05 * weekday
+        target = 0.09 * weekday
 
         self.after(40, lambda: canvas.xview_moveto(target))
 
@@ -184,7 +187,10 @@ class HomePage(ctk.CTkFrame):
                             font=("Arial", 9, "bold"),
                             height=2
                         )
-                        label.pack(anchor="nw", fill="x", expand=True, pady=4, padx=3)
+                        if len(routine.items()) > 5:
+                            label.pack(anchor="nw", fill="x", expand=True, pady=1, padx=3)
+                        else:
+                            label.pack(anchor="nw", fill="x", expand=True, pady=3, padx=3)
             else:
                 rest_label = ctk.CTkLabel(box, text="Rest Day", font=("Arial", 12, "bold"))
                 rest_label.pack(expand=True)

@@ -64,10 +64,11 @@ class WorkoutData:
         self.conn.commit()
 
     def movements(self):
-        return ["Pushups", "Pike Pushups", "Weighted Pushups", "Dips",
-                "Squats", "Pull ups", "Dead Hangs", "Tricep Dips",
-                "Slow Negatives", "Australian Rows", "Plank", "Dip Holds",
-                "Knee Raises",
+        return ["Pushups", "Pike Pushups", "Weighted Pushups", "Diamond Pushups",
+                "Pull ups", "Chin-Ups", "Dead Hangs", "Slow Negatives",
+                "Australian Rows", "Plank", "Dip Holds", "Dips", "Knee Raises",
+                "Hammer Curls", "Reverse Wrist Curls", "Wrist Curls",
+                "Neck Flexion", "Neck Extension", "Side Neck Raises"
                 ]
 
     def load_routine(self, day_name):
