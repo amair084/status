@@ -31,9 +31,10 @@ def clone_day_box(self, day_index):
                 cloned_box,
                 text=child.cget("text"),
                 font=child.cget("font"),
-                fg_color=child.cget("fg_color") if "fg_color" in child.keys() else None
+                fg_color=child.cget("fg_color") if "fg_color" in child.keys() else None,
+                height=child.winfo_height()
             )
-            new_label.pack(padx=4, pady=4)
+            new_label.pack(anchor="nw", side="top", fill="x", expand=False, pady=5, padx=3)
 
 
     return cloned_box

@@ -68,7 +68,8 @@ class WorkoutData:
                 "Pull ups", "Chin-Ups", "Dead Hangs", "Slow Negatives",
                 "Australian Rows", "Plank", "Dip Holds", "Dips", "Knee Raises",
                 "Hammer Curls", "Reverse Wrist Curls", "Wrist Curls",
-                "Neck Flexion", "Neck Extension", "Side Neck Raises"
+                "Neck Flexion", "Neck Extension", "Side Neck Raises",
+                "Jump Rope"
                 ]
 
     def load_routine(self, day_name):

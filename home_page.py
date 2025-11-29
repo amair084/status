@@ -122,7 +122,7 @@ class HomePage(ctk.CTkFrame):
         if self.restday == True:
             daily_workout.pack(padx=20, pady=70)
         else:
-            daily_workout.place(x=32,y=30)
+            daily_workout.place(x=32,y=40)
 
         self.day_labels[weekday].configure(text_color="#D72627")
         self.container_boxes[weekday].configure(fg_color="#8D1F1F")
@@ -205,7 +205,7 @@ class HomePage(ctk.CTkFrame):
         if self.restday:
             cloned.pack(padx=20, pady=70)
         else:
-            cloned.place(x=30, y=30)
+            cloned.place(x=28, y=40)
 
         dailybox_logo = ctk.CTkImage(
             light_image=Image.open("resources/bicep.png"),
@@ -217,6 +217,6 @@ class HomePage(ctk.CTkFrame):
         daily_label2 = ctk.CTkLabel(self.dailybox, text="Today's Workout", font=("Roboto", 14), text_color="red")
 
         self.daily_label.image = dailybox_logo
-        self.daily_label.place(x=2, y=0)
+        self.daily_label.place(x=1, y=0)
         daily_label2.place(x=40, y=10)
 
